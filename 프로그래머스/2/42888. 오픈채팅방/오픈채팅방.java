@@ -22,6 +22,7 @@ class Solution {
         
         String[] answer = new String[answer_len];
         int answer_idx = 0;
+        StringBuilder sb = new StringBuilder();
         
         for(String str : record) {
             String[] split = str.split(" ");
