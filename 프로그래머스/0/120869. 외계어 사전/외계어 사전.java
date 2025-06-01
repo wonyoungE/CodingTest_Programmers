@@ -11,7 +11,7 @@ class Solution {
                     break;
                 }
             }
-            if(cnt == spell.length && d.length() == spell.length) {
+            if(cnt == spell.length) {
                 return 1;
             }
         }
