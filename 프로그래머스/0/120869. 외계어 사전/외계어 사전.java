@@ -1,0 +1,21 @@
+class Solution {
+    public int solution(String[] spell, String[] dic) {
+        int answer = 2;
+        
+        for(String d : dic) {
+            int cnt = 0;
+            for(String s : spell) {
+                if(d.contains(s)) {
+                    cnt++;
+                } else {
+                    break;
+                }
+            }
+            if(cnt == spell.length && d.length() == spell.length) {
+                return 1;
+            }
+        }
+        
+        return answer;
+    }
+}
