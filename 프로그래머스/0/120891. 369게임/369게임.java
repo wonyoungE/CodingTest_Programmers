@@ -4,7 +4,7 @@ class Solution {
         
         while(order > 0) {
             int tmp = order % 10;
-            if(tmp == 3 || tmp == 6 || tmp == 9) {
+            if(tmp != 0 && tmp % 3 == 0) {
                 answer++;
             }
             order /= 10;
