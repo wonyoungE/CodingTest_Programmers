@@ -3,6 +3,10 @@ import java.util.*;
 class Solution {
     public int[] solution(String[] id_list, String[] report, int k) {
         int[] answer = new int[id_list.length];
+        Map<String, Integer> idIdx = new HashMap<>();
+        for(int i = 0; i < id_list.length; i++) {
+            idIdx.put(id_list[i], i);
+        }
         
         // 해당 유저에 대한 신고자 리스트 저장할 map
         Map<String, Set<String>> map = new HashMap<>();
@@ -18,24 +22,14 @@ class Solution {
             map.get(reported_id).add(user_id);
         }
             
-        // 신고 당한 수가 k이상인 id들에 대해 신고한 유저들에게 보낼 메일 수
-        Map<String, Integer> mail = new HashMap<>();
-        for(String id : id_list) {
-            mail.put(id, 0);
-        }
-        
-        for(int i = 0; i < id_list.length; i++) {
-            if(map.get(id_list[i]).size() >= k) {
-                Iterator<String> iter = map.get(id_list[i]).iterator();
-                while(iter.hasNext()) {
-                    String id = iter.next();
-                    mail.put(id, mail.get(id) + 1);
+        // 신고 당한 수가 k이상인 id들에 대해 신고한 유저들에게 보낼 메일 
+        for(String key : map.keySet()) {
+            Set<String> reporters = map.get(key);
+            if(reporters.size() >= k) {
+                for(String reporter : reporters) {
+                    answer[idIdx.get(reporter)]++;
                 }
             }
-        }
-        
-        for(int i = 0; i < id_list.length; i++) {
-            answer[i] = mail.get(id_list[i]);
         }
         
         return answer;
