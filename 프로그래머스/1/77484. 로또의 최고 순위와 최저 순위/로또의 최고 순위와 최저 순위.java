@@ -1,28 +1,30 @@
-import java.util.Map;
-import java.util.HashMap;
-
+import java.util.*;
 class Solution {
     public int[] solution(int[] lottos, int[] win_nums) {
         int[] answer = new int[2];
-        int match = 0;
-        int zero = 0;
-        Map<Integer, Integer> rank = new HashMap<>();
-        rank.put(6, 1); rank.put(5, 2); rank.put(4, 3);
-        rank.put(3, 4); rank.put(2, 5); rank.put(1, 6); rank.put(0, 6);
+        // 0개, 1개 번호 일치 -> 6등
+        // 최고 순위 = 알아볼 수 있는 수가 일치 + 알아볼 수 없는 수가 모두 일치
+        // 최저 순위 = 알아볼 수 있는 수만 일치
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(6, 1); map.put(5, 2); map.put(4, 3); map.put(3, 4);
+        map.put(2, 5); map.put(1, 6); map.put(0, 6);
+        int correct = 0, zero = 0;
         
-        for(int l : lottos) {
-            if(l == 0) {
+        for(int num : lottos) {
+            if(num == 0) {
                 zero++;
+                continue;
             }
-            for(int w : win_nums) {
-                if(l == w) {
-                    match++;
+            for(int i = 0; i < win_nums.length; i++) {
+                if(win_nums[i] == num) {
+                    correct++;
+                    break;
                 }
             }
         }
         
-        answer[0] = rank.get(zero+match);
-        answer[1] = rank.get(match);
+        answer[0] = map.get(correct + zero);
+        answer[1] = map.get(correct);
         
         return answer;
     }
