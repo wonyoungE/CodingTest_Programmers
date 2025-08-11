@@ -5,10 +5,7 @@ public class Solution {
         int ans = 0;
 
         while(n > 0) {
-            if(n == 2) {
-                ans++;
-                return ans;
-            } else if(n % 2 == 1) {
+            if(n % 2 == 1) {
                 ans++;
                 n /= 2;
             } else if(n % 2 == 0) {
