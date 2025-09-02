@@ -1,12 +1,18 @@
+import java.util.*;
+
 class Solution {
     public int[] solution(int n, long left, long right) {
-        int[] answer = new int[(int)(right-left + 1)];
-        int k = 0;
+        int[] answer = new int[(int)(right - left) + 1];
         
+        // {i % n + 1, i / n + 1}
+        int idx = 0;
         for(long i = left; i <= right; i++) {
-            int x = (int)(i / n);
-            int y = (int)(i % n);
-            answer[k++] = Math.max(x, y) + 1;
+            // 행
+            int row = (int)(i / n);
+            // 열
+            int column = (int)(i % n);
+            int max = Math.max(row, column);
+            answer[idx++] = max + 1;
         }
         
         return answer;
