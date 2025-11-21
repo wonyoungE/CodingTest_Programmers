@@ -1,21 +1,30 @@
+import java.util.*;
+
 class Solution {
     public int solution(String[] spell, String[] dic) {
-        int answer = 2;
+        // spell의 원소를 모두 사용해서 만드는 단어
+        // dic[]의 원소의 길이 = spell의 길이
         
-        for(String d : dic) {
-            int cnt = 0;
-            for(String s : spell) {
-                if(d.contains(s)) {
-                    cnt++;
-                } else {
-                    break;
-                }
+        Arrays.sort(spell);
+        Arrays.sort(dic);
+        
+        String sorted_spell = String.join("", spell);
+
+        for(int i = 0; i < dic.length; i++) {
+            // spell의 길이와 같지 않으면 모두 사용한 것이 아님
+            if(spell.length != dic[i].length()) {
+                continue;
             }
-            if(cnt == spell.length) {
+            
+            String[] dic_split = dic[i].split("");
+            Arrays.sort(dic_split);
+            
+            String sorted_dic = String.join("", dic_split); 
+            if(sorted_spell.equals(sorted_dic)) {
                 return 1;
             }
         }
         
-        return answer;
+        return 2;
     }
 }
