@@ -1,5 +1,4 @@
-import java.util.Queue;
-import java.util.LinkedList;
+import java.util.*;
 
 class Solution {
     public int solution(int[] priorities, int location) {
@@ -7,27 +6,26 @@ class Solution {
         Queue<int[]> queue = new LinkedList<>();
         
         for(int i = 0; i < priorities.length; i++) {
-            queue.add(new int[] {i, priorities[i]});
+            queue.add(new int[]{i, priorities[i]});
         }
         
         while(!queue.isEmpty()) {
-            int[] first = queue.poll();
-            boolean hasHigher = false;
+            boolean isFirst = true;
+            int[] process = queue.poll();
             
-            for(int[] p : queue) {
-                if(first[1] < p[1]) {
-                    hasHigher = true;
+            for(int[] q : queue) {
+                if(process[1] < q[1]) {
+                    isFirst = false;
                     break;
                 }
             }
             
-            if(hasHigher) {
-                queue.add(first);
-            } else {
+            // 우선순위가 1번이면
+            if(isFirst) {
                 answer++;
-                if(first[0] == location) {
-                    return answer;
-                }
+                if(process[0] == location) return answer;
+            } else {
+                queue.add(process);
             }
         }
         
