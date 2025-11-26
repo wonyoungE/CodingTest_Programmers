@@ -2,12 +2,15 @@ import java.util.*;
 
 class Solution {
     public int solution(int[][] maps) {
+        int answer = 0;
         int n = maps.length;
         int m = maps[0].length;
         
-        // 최단 거리 문제 -> bfs
-        // 큐 + 2차원 배열
+        // BFS
+        // 최대한 빨리 도착 = 최단 거리 = bfs
+        // 방문한 곳, 해당 위치의 값이 그 위치까지의 최단 거리
         int[][] visited = new int[n][m];
+        
         Queue<int[]> queue = new LinkedList<>();
         queue.add(new int[]{0, 0});
         
@@ -20,7 +23,7 @@ class Solution {
             int x = current[0];
             int y = current[1];
             
-            // 상, 하, 좌, 우 확인
+            // 현재 위치에서 상 하 좌 우 볼 것
             int[] dx = {0, 0, -1, 1};
             int[] dy = {-1, 1, 0, 0};
             
@@ -28,8 +31,10 @@ class Solution {
                 int nx = x + dx[i];
                 int ny = y + dy[i];
                 
+                // 범위 체크
                 if(nx != -1 && nx != n && ny != -1 && ny != m) {
-                    // 갈 수 있고, 방문한 곳인지 여부(이미 방문했다면 그 자리는 해당 거리가 최소임)
+                    // 갈 수 있고, 방문한 곳인지 여부 확인(이미 방문했으면 방문한 숫자가 최소일 것)
+                    // 왜냐면 이제 가면 한 번 더 거쳐가는 거기 때문에
                     if(maps[nx][ny] == 1 && visited[nx][ny] == 0) {
                         queue.add(new int[]{nx, ny});
                         visited[nx][ny] = visited[x][y] + 1;
